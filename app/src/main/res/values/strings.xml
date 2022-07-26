@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AsakatsuYaroze</string>
+    <string name="input_pattern_name">パターンの名前を入力してください</string>
+    <string name="save">保存</string>
 </resources>
