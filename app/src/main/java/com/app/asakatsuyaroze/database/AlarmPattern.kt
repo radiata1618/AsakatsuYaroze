@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "alarmPattern")
-data class AlarmPattern(
+data class AlarmPattern (
     @PrimaryKey(autoGenerate = true) val id: Int,
     val patternName: String,
     val monday: Boolean,

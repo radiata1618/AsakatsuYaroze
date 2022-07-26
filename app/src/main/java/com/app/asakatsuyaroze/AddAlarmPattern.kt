@@ -1,5 +1,6 @@
 package com.app.asakatsuyaroze
 
+import AlarmPatternSerializable
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -42,11 +43,14 @@ public final class AddAlarmPattern : AppCompatActivity() {
         )
         alarmPatternDao.insert(newAlarmPattern)
         Log.v("TAG", "after insert ${alarmPatternDao.getAll().toString()}")
-
         val intent = Intent(applicationContext, SetAlarmPattern::class.java)
-        intent.putExtra("alarmPattern",newAlarmPattern)
+
+        val alarmPatternSerializable:AlarmPatternSerializable=AlarmPatternSerializable(newAlarmPattern)
+        intent.putExtra("alarmPattern",alarmPatternSerializable)
         startActivity(intent)
+
     }
 
 
 }
+
