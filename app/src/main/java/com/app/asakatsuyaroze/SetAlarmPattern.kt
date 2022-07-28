@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView.BufferType
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.app.asakatsuyaroze.database.AlarmPattern
 import java.io.Serializable
@@ -13,13 +14,17 @@ import java.io.Serializable
 
 public final class SetAlarmPattern : AppCompatActivity() {
 
+
     val alarmPatternSerializable:AlarmPatternSerializable = intent.getSerializableExtra("alarmPattern") as AlarmPatternSerializable
     val editText:EditText = findViewById<EditText>(R.id.textAlarmPatternName)
+    val viewModel: AddAlarmPatternViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.set_alarm_pattern)
-        editText.setText(alarmPatternSerializable.alarmPattern?.patternName ?: "", BufferType.NORMAL)
+        viewModel.alarmPattern=alarmPatternSerializable.alarmPattern
+        editText.setText(viewModel.alarmPattern?.patternName ?: "", BufferType.NORMAL)
     }
 
 
