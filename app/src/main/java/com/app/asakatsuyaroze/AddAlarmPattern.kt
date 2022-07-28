@@ -57,7 +57,7 @@ public final class AddAlarmPattern : AppCompatActivity() {
             0,
             false
         )
-        GlobalScope.launch(Dispatchers.IO) { // 非同期処理
+        GlobalScope.launch(Dispatchers.IO) {
 //            val lastId = notificationDao.selectLastId()
             // 最後のidにプラス1して新しいデータを追加
 //            val state = NotificationState(lastId + 1, NotificationType.GOOD, "いいねをもらいました")
@@ -70,8 +70,7 @@ public final class AddAlarmPattern : AppCompatActivity() {
         }
         val intent = Intent(applicationContext, SetAlarmPattern::class.java)
 
-        val alarmPatternSerializable:AlarmPatternSerializable=AlarmPatternSerializable(newAlarmPattern)
-        intent.putExtra("alarmPattern",alarmPatternSerializable)
+        intent.putExtra("alarmPatternId",newAlarmPattern.id)
         startActivity(intent)
 
     }
