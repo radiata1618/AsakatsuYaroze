@@ -13,13 +13,10 @@ import com.app.asakatsuyaroze.database.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlin.math.log
-
 
 public final class SetAlarmPattern : AppCompatActivity() {
 
 
-    //    val viewModel: AddAlarmPatternViewModel by viewModels()
     private var editText: EditText? = null
     private var alarmPattern: AlarmPattern? = null
 
@@ -39,10 +36,8 @@ public final class SetAlarmPattern : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.IO) {
             alarmPattern=alarmPatternDao.getAlarmPattern(alarmPatternId)
-            Log.v("TAG", "■■■■■■■■■■■■■■■■■■■■■■■set window ${alarmPattern!!.patternName}")
         }
 
-//        editText.setText(viewModel.alarmPattern?.patternName ?: "", BufferType.NORMAL)
     }
 
 

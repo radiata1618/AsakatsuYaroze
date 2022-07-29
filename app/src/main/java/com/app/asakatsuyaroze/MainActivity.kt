@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.ListView
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +15,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+    // xmlにて実装したListViewの取得
+    val listView = findViewById<ListView>(R.id.main_list_view)
+
+    // 配列の生成
+    val array = arrayOf("リスト１", "リスト２", "リスト３", "リスト４", "リスト５")
+
+    // ArrayAdapterの生成
+    val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, array)
+
+    // ListViewに、生成したAdapterを設定
+    listView.adapter = adapter
 
     }
     fun floatingActionButtonClick(view: View) {
