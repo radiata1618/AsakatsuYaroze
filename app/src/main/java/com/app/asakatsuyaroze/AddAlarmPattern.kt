@@ -58,20 +58,16 @@ public final class AddAlarmPattern : AppCompatActivity() {
             false
         )
         GlobalScope.launch(Dispatchers.IO) {
-//            val lastId = notificationDao.selectLastId()
-            // 最後のidにプラス1して新しいデータを追加
-//            val state = NotificationState(lastId + 1, NotificationType.GOOD, "いいねをもらいました")
-            alarmPatternDao.insert(newAlarmPattern)
+            val alarmPatternId : Long = alarmPatternDao.insert(newAlarmPattern)
+            Log.v("TAG", "■■■■■■■■■■■■■■■■■■■■■■■after insert ${alarmPatternId.toString()}")
+//            Toast.makeText(this@AddAlarmPattern, alarmPatternId.toString(), Toast.LENGTH_SHORT).show()
 
-            GlobalScope.launch(Dispatchers.Main) {  // main thread
-                Log.v("TAG", "after insert ${alarmPatternDao.getAll().toString()}")
-                Toast.makeText(this@AddAlarmPattern, "データ追加しました", Toast.LENGTH_SHORT).show()
-            }
+            val intent = Intent(applicationContext, SetAlarmPattern::class.java)
+
+            intent.putExtra("alarmPatternId",alarmPatternId.toInt())
+            startActivity(intent)
+
         }
-        val intent = Intent(applicationContext, SetAlarmPattern::class.java)
-
-        intent.putExtra("alarmPatternId",newAlarmPattern.id)
-        startActivity(intent)
 
     }
 

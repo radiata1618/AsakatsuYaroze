@@ -5,7 +5,7 @@ import androidx.room.*
 @Dao
 interface AlarmPatternDao {
     @Insert
-    fun insert(alarmPattern : AlarmPattern)
+    fun insert(alarmPattern : AlarmPattern):Long
 
     @Update
     fun update(alarmPattern : AlarmPattern)
