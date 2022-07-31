@@ -1,15 +1,13 @@
 package com.app.asakatsuyaroze
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
-import com.app.asakatsuyaroze.database.AlarmPattern
-import com.app.asakatsuyaroze.database.AppDatabase
+import com.app.asakatsuyaroze.data.AlarmPattern
+import com.app.asakatsuyaroze.data.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

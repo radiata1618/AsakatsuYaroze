@@ -1,4 +1,4 @@
-package com.app.asakatsuyaroze.database
+package com.app.asakatsuyaroze.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

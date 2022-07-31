@@ -1,4 +1,4 @@
-package com.app.asakatsuyaroze.database
+package com.app.asakatsuyaroze.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

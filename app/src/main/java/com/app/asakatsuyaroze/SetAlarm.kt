@@ -2,12 +2,9 @@ package com.app.asakatsuyaroze
 
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
-import android.widget.TextView.BufferType
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.app.asakatsuyaroze.database.AlarmPattern
-import java.io.Serializable
+import com.app.asakatsuyaroze.data.AlarmPattern
 
 
 public final class SetAlarm : AppCompatActivity() {

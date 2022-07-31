@@ -1,5 +1,6 @@
-package com.app.asakatsuyaroze.database
+package com.app.asakatsuyaroze.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 @Dao
@@ -19,6 +20,9 @@ interface AlarmPatternDao {
     @Query("select * from alarmPattern")
     fun getAll(): List<AlarmPattern>
 
-    @Query("select * from alarmPattern where id = :id")
-    fun getAlarmPattern(id: Int): AlarmPattern
+    @Query("SELECT * FROM alarmPattern ORDER BY id ASC")
+    fun getAllLiveData(): LiveData<List<AlarmPattern>>
+
+    @Query("select * from alarmPattern where id = :p0")
+    fun getAlarmPattern(p0: Int): AlarmPattern
 }
