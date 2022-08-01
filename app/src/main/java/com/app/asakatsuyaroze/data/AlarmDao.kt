@@ -21,8 +21,8 @@ interface AlarmDao {
     fun getAll(): List<Alarm>
 
     @Query("select * from alarm where id = :p0")
-    fun getAlarm(p0: Int): LiveData<Alarm>
+    fun getLiveData(p0: Int): LiveData<Alarm>
 
     @Query("select * from alarm where patternId = :p0")
-    fun getAlarmByPatternId(p0: Int): LiveData<List<Alarm>>
+    fun getAlarmByPatternId(p0: Int): List<Alarm>
 }

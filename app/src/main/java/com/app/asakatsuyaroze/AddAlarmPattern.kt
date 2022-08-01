@@ -15,30 +15,18 @@ import kotlinx.coroutines.launch
 
 public final class AddAlarmPattern : AppCompatActivity() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_alarm_pattern)
-
-
-//        val viewModel = viewModels(::AddAlarmPatternViewModel)
-//
-//        val viewModel: CountViewModel= ViewModelProviders.of(this).get(CountViewModel::class.java)
-
-
     }
-
 
     fun registerButtonOnClick(view: View) {
 
-
         val editText = findViewById<EditText>(R.id.textAlarmPatternName)
-
-//        Toast.makeText(this, "タップされました。", Toast.LENGTH_SHORT).show()
         val database =
             Room.databaseBuilder(applicationContext, AppDatabase::class.java, "mainDatabase")
                 .build()
+
         val alarmPatternDao = database.alarmPatternDao()
         val newAlarmPattern:AlarmPattern = AlarmPattern(
             0,
@@ -56,18 +44,11 @@ public final class AddAlarmPattern : AppCompatActivity() {
         )
         GlobalScope.launch(Dispatchers.IO) {
             val alarmPatternId : Long = alarmPatternDao.insert(newAlarmPattern)
-            Log.v("TAG", "■■■■■■■■■■■■■■■■■■■■■■■after insert ${alarmPatternId.toString()}")
-//            Toast.makeText(this@AddAlarmPattern, alarmPatternId.toString(), Toast.LENGTH_SHORT).show()
-
             val intent = Intent(applicationContext, SetAlarmPattern::class.java)
-
             intent.putExtra("alarmPatternId",alarmPatternId.toInt())
             startActivity(intent)
 
         }
-
     }
-
-
 }
 

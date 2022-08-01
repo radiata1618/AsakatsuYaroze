@@ -2,6 +2,7 @@ package com.app.asakatsuyaroze.data
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,8 +11,7 @@ import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
-class AlarmPatternViewModel(application: Application) : AndroidViewModel(application) {
+class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
 
     var alarmPatternList = MutableLiveData<List<AlarmPattern>>()
 
@@ -20,7 +20,7 @@ class AlarmPatternViewModel(application: Application) : AndroidViewModel(applica
         alarmPatternList.value= mutableListOf((
                 AlarmPattern(
                     0,
-                    "name1",
+                    "",
                     false,
                     false,
                     false,
@@ -41,9 +41,10 @@ class AlarmPatternViewModel(application: Application) : AndroidViewModel(applica
                 .build()
         val alarmPatternDao = database.alarmPatternDao()
 
-//        GlobalScope.launch(Dispatchers.IO) {
+      GlobalScope.launch(Dispatchers.IO) {
             alarmPatternList.postValue(alarmPatternDao.getAll())
-//        }
+      }
     }
 
 }
+
