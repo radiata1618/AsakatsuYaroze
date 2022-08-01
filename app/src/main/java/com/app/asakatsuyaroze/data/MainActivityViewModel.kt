@@ -16,23 +16,8 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     var alarmPatternList = MutableLiveData<List<AlarmPattern>>()
 
     init{
-
-        alarmPatternList.value= mutableListOf((
-                AlarmPattern(
-                    0,
-                    "",
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    1,
-                    1,
-                    false
-                )
-                ))
+        alarmPatternList.value= mutableListOf(
+        )
     }
 
     fun refleshData(applicationContext: Context) {

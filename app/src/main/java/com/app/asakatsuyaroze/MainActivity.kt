@@ -33,8 +33,10 @@ class MainActivity : AppCompatActivity() {
         mAlarmPatternViewModel.refleshData(applicationContext)
 
         mAlarmPatternViewModel.alarmPatternList.observe(this) {
-            adapter = MainActivityAdapter(mAlarmPatternViewModel.alarmPatternList.value!!)
-            binding.recyclerView.adapter = adapter
+            if(mAlarmPatternViewModel.alarmPatternList.value!=null){
+                adapter = MainActivityAdapter(mAlarmPatternViewModel.alarmPatternList.value!!)
+                binding.recyclerView.adapter = adapter
+            }
         }
     }
 

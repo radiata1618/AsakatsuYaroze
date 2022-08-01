@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 data class Alarm(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val patternId: Int,
+    val alarmType: Int,//1:初回起床,2:2度寝終了,3:出勤時間
     val hour: Int ,
     val minute: Int,
     val valid: Boolean,

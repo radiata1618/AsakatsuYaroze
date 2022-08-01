@@ -1,5 +1,6 @@
 package com.app.asakatsuyaroze
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -31,15 +32,27 @@ public final class SetAlarmPattern : AppCompatActivity() {
             }
         }
 
-        mSetAlarmPatternViewModel.alarmList.observe(this) {
+        mSetAlarmPatternViewModel.alarmListType1.observe(this) {
+        }
+
+        mSetAlarmPatternViewModel.alarmListType2.observe(this) {
+        }
+
+        mSetAlarmPatternViewModel.alarmListType3.observe(this) {
         }
 
 
     }
+    fun firstSecondAlarmSetButtonClick(view: View) {
 
-    fun floatingActionButtonClick(view: View) {
+        TimePick()
+
         Toast.makeText(this, "タップされました。", Toast.LENGTH_SHORT).show()
 //        val intent = Intent(applicationContext, AddAlarmPattern::class.java)
 //        startActivity(intent)
+    }
+
+    fun floatingActionButtonClick(view: View) {
+        Toast.makeText(this, "タップされました。", Toast.LENGTH_SHORT).show()
     }
 }

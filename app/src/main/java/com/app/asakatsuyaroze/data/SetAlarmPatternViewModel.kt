@@ -15,35 +15,11 @@ import kotlinx.coroutines.launch
 class SetAlarmPatternViewModel(application: Application) : AndroidViewModel(application) {
 
     var alarmPattern = MutableLiveData<AlarmPattern>()
-    var alarmList = MutableLiveData<List<Alarm>>()
+    var alarmListType1 = MutableLiveData<List<Alarm>>()
+    var alarmListType2 = MutableLiveData<List<Alarm>>()
+    var alarmListType3 = MutableLiveData<List<Alarm>>()
 
     init {
-        alarmList.value = mutableListOf(
-            Alarm(
-                0,
-                0,
-                0,
-                0,
-                false,
-                0,
-                0
-            )
-        )
-
-        alarmPattern.value = AlarmPattern(
-            0,
-            "",
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false,
-            1,
-            1,
-            false
-        )
     }
 
     fun refleshData(applicationContext: Context, patternId: Int) {
@@ -54,7 +30,9 @@ class SetAlarmPatternViewModel(application: Application) : AndroidViewModel(appl
         val alarmPatternDao = database.alarmPatternDao()
 
         GlobalScope.launch(Dispatchers.IO) {
-            alarmList.postValue(alarmDao.getAlarmByPatternId(patternId))
+            alarmListType1.postValue(alarmDao.getAlarmByPatternIdType1(patternId))
+            alarmListType2.postValue(alarmDao.getAlarmByPatternIdType2(patternId))
+            alarmListType3.postValue(alarmDao.getAlarmByPatternIdType3(patternId))
             alarmPattern.postValue(alarmPatternDao.getAlarmPattern(patternId))
         }
     }

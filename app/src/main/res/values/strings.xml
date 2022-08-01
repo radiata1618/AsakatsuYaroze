@@ -2,4 +2,7 @@
     <string name="app_name">AsakatsuYaroze</string>
     <string name="input_pattern_name">パターンの名前を入力してください</string>
     <string name="save">保存</string>
+    <string name="textViewLabelFirstTime">初回アラーム</string>
+    <string name="textViewLabelSecondTime">2回目アラーム</string>
+    <string name="buttonSetFirstSecondAlarm">アラームセット</string>
 </resources>
