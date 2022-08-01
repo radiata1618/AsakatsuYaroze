@@ -4,17 +4,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.asakatsuyaroze.adapter.MainActivityAdapter
+import com.app.asakatsuyaroze.data.Alarm
 import com.app.asakatsuyaroze.data.AlarmPattern
 import com.app.asakatsuyaroze.data.SetAlarmPatternViewModel
 import com.app.asakatsuyaroze.databinding.ActivityMainBinding
 
 public final class SetAlarmPattern : AppCompatActivity() {
+
+    private var alarmPatternId:Int =0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +27,7 @@ public final class SetAlarmPattern : AppCompatActivity() {
         val mSetAlarmPatternViewModel =
             ViewModelProvider(this).get(SetAlarmPatternViewModel::class.java)
 
-        val alarmPatternId: Int = intent.getIntExtra("alarmPatternId", -1)
+        alarmPatternId = intent.getIntExtra("alarmPatternId", -1)
         mSetAlarmPatternViewModel.refleshData(applicationContext,alarmPatternId)
 
         mSetAlarmPatternViewModel.alarmPattern.observe(this) {
@@ -33,9 +37,13 @@ public final class SetAlarmPattern : AppCompatActivity() {
         }
 
         mSetAlarmPatternViewModel.alarmListType1.observe(this) {
+            val alarmType1: Alarm =mSetAlarmPatternViewModel.alarmListType1.value!![0]
+            findViewById<TextView>(R.id.textViewAlarmFirstTime).setText(alarmType1.hour.toString()+":"+alarmType1.minute.toString())
         }
 
         mSetAlarmPatternViewModel.alarmListType2.observe(this) {
+            val alarmType2: Alarm =mSetAlarmPatternViewModel.alarmListType2.value!![0]
+            findViewById<TextView>(R.id.textViewAlarmFirstTime).setText(alarmType2.hour.toString()+":"+alarmType2.minute.toString())
         }
 
         mSetAlarmPatternViewModel.alarmListType3.observe(this) {
@@ -45,9 +53,9 @@ public final class SetAlarmPattern : AppCompatActivity() {
     }
     fun firstSecondAlarmSetButtonClick(view: View) {
 
-        TimePick()
+        val newFragment = TimePick(1,alarmPatternId,this)
+        newFragment.show(supportFragmentManager, "timePicker")
 
-        Toast.makeText(this, "タップされました。", Toast.LENGTH_SHORT).show()
 //        val intent = Intent(applicationContext, AddAlarmPattern::class.java)
 //        startActivity(intent)
     }
