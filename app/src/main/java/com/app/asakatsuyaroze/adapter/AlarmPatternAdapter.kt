@@ -12,6 +12,9 @@ class AlarmPatternViewHolder(var binding: AlarmpatternRowBinding) : RecyclerView
 
 class AlarmPatternAdapter(private val items: List<AlarmPattern>) : RecyclerView.Adapter<AlarmPatternViewHolder>() {
 
+
+    private var alarmPatternList = emptyList<AlarmPattern>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmPatternViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: AlarmpatternRowBinding = DataBindingUtil.inflate(inflater, R.layout.alarmpattern_row, parent, false)
@@ -24,5 +27,13 @@ class AlarmPatternAdapter(private val items: List<AlarmPattern>) : RecyclerView.
 
     override fun getItemCount(): Int {
         return items.count()
+    }
+
+    fun setData(alarmPattern: List<AlarmPattern>) {
+        this.alarmPatternList = alarmPattern
+        notifyDataSetChanged()
+    }
+    fun getData(position: Int): AlarmPattern {
+        return this.alarmPatternList[position]
     }
 }

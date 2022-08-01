@@ -1,38 +1,49 @@
 package com.app.asakatsuyaroze.data
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class AlarmPatternViewModel  (application: Application): AndroidViewModel(application){
+class AlarmPatternViewModel(application: Application) : AndroidViewModel(application) {
 
-//    var alarmPattern: AlarmPattern? = null
+    var alarmPatternList = MutableLiveData<List<AlarmPattern>>()
 
-    val readAllData: LiveData<List<AlarmPattern>>
-    private val repository: AlarmPatternRepository
+    init{
 
-    init {
+        alarmPatternList.value= mutableListOf((
+                AlarmPattern(
+                    0,
+                    "name1",
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                    1,
+                    1,
+                    false
+                )
+                ))
+    }
+
+    fun refleshData(applicationContext: Context) {
         val database =
-            Room.databaseBuilder(application, AppDatabase::class.java, "mainDatabase")
+            Room.databaseBuilder(applicationContext, AppDatabase::class.java, "mainDatabase")
                 .build()
         val alarmPatternDao = database.alarmPatternDao()
-        repository = AlarmPatternRepository(alarmPatternDao)
-        readAllData = repository.readAllData
+
+//        GlobalScope.launch(Dispatchers.IO) {
+            alarmPatternList.postValue(alarmPatternDao.getAll())
+//        }
     }
 
-    fun insertAlarmPattern(alarmPattern: AlarmPattern) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.insertAlarmPattern(alarmPattern)
-        }
-    }
-
-    fun deleteAllWords() {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteAllAlarmPatterns()
-        }
-    }
 }
