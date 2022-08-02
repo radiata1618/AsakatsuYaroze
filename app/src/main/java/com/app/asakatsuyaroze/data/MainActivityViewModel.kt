@@ -8,15 +8,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
+import com.app.asakatsuyaroze.adapter.MainActivityAlarmPatternData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+
 class MainActivityViewModel(application: Application) : AndroidViewModel(application) {
 
-    var alarmPatternList = MutableLiveData<List<AlarmPattern>>()
+    var alarmPatternDataList = MutableLiveData<List<MainActivityAlarmPatternData>>()
 
-    init{
-        alarmPatternList.value= mutableListOf(
+    init {
+        alarmPatternDataList.value = mutableListOf(
         )
     }
 
@@ -26,9 +28,20 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
                 .build()
         val alarmPatternDao = database.alarmPatternDao()
 
-      GlobalScope.launch(Dispatchers.IO) {
-            alarmPatternList.postValue(alarmPatternDao.getAll())
-      }
+        GlobalScope.launch(Dispatchers.IO) {
+            val alarmPatternList: List<AlarmPattern> = alarmPatternDao.getAll()
+            val alarmPatternDataListTmp: MutableList<MainActivityAlarmPatternData> = mutableListOf()
+            for (i in alarmPatternList.indices) {
+                alarmPatternDataListTmp.add(
+                    MainActivityAlarmPatternData(
+                        alarmPatternList.get(i).id.toString(),
+                        alarmPatternList.get(i).patternName
+                    )
+                )
+            }
+            alarmPatternDataList.postValue(alarmPatternDataListTmp)
+
+        }
     }
 
 }

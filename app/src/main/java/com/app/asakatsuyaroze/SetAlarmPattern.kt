@@ -37,13 +37,17 @@ public final class SetAlarmPattern : AppCompatActivity() {
         }
 
         mSetAlarmPatternViewModel.alarmListType1.observe(this) {
-            val alarmType1: Alarm =mSetAlarmPatternViewModel.alarmListType1.value!![0]
-            findViewById<TextView>(R.id.textViewAlarmFirstTime).setText(alarmType1.hour.toString()+":"+alarmType1.minute.toString())
+            if(mSetAlarmPatternViewModel.alarmListType1.value!!.size!=0){
+                val alarmType1: Alarm =mSetAlarmPatternViewModel.alarmListType1.value!![0]
+                findViewById<TextView>(R.id.textViewAlarmFirstTime).setText(alarmType1.hour.toString()+":"+alarmType1.minute.toString())
+            }
         }
 
         mSetAlarmPatternViewModel.alarmListType2.observe(this) {
-            val alarmType2: Alarm =mSetAlarmPatternViewModel.alarmListType2.value!![0]
-            findViewById<TextView>(R.id.textViewAlarmFirstTime).setText(alarmType2.hour.toString()+":"+alarmType2.minute.toString())
+            if(mSetAlarmPatternViewModel.alarmListType2.value!!.size!=0){
+                val alarmType2: Alarm =mSetAlarmPatternViewModel.alarmListType2.value!![0]
+                findViewById<TextView>(R.id.textViewAlarmSecondTime).setText(alarmType2.hour.toString()+":"+alarmType2.minute.toString())
+            }
         }
 
         mSetAlarmPatternViewModel.alarmListType3.observe(this) {

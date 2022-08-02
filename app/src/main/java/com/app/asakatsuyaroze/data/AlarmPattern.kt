@@ -16,9 +16,6 @@ data class AlarmPattern (
     val saturday: Boolean,
     val sunday: Boolean,
     val goToBedTimeHour: Int,
-    val goToBedTimeMinte: Int,
+    val goToBedTimeMinute: Int,
     val forceGoToBedEnable: Boolean,
 )
-
-
-val getPatternName = AlarmPattern::patternName
