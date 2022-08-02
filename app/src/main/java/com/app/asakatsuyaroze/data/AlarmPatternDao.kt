@@ -23,6 +23,6 @@ interface AlarmPatternDao {
     @Query("SELECT * FROM alarmPattern ORDER BY id ASC")
     fun getAllLiveData(): LiveData<List<AlarmPattern>>
 
-    @Query("select * from alarmPattern where id = :p0")
-    fun getAlarmPattern(p0: Int): AlarmPattern
+    @Query("select * from alarmPattern where id = :id")
+    fun getAlarmPattern(id: Int): AlarmPattern
 }

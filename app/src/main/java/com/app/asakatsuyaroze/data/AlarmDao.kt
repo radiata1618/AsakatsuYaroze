@@ -43,4 +43,23 @@ interface AlarmDao {
 
     @Query("select * from alarm where patternId = :p0")
     fun getAlarmByPatternId(p0: Int): List<Alarm>
+
+    fun insertAlarmType1Default(patternId:Int,hour:Int,minute:Int){
+        insert(Alarm(0, patternId,1,hour,minute,true,0,0))//★★★計算★★★
+    }
+
+    fun updateAlarmType1Default(patternId:Int,hour:Int,minute:Int){
+        deleteAlarmByPatternIdType1(patternId)
+        insertAlarmType1Default(patternId,hour,minute)
+    }
+
+    fun insertAlarmType2Default(patternId:Int,hour:Int,minute:Int){
+        insert(Alarm(0, patternId,2,hour,minute,true,0,0))//★★★計算★★★
+    }
+
+    fun updateAlarmType2Default(patternId:Int,hour:Int,minute:Int){
+        deleteAlarmByPatternIdType2(patternId)
+        insertAlarmType2Default(patternId,hour,minute)
+    }
+
 }

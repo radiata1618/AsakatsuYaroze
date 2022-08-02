@@ -15,25 +15,33 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.asakatsuyaroze.adapter.MainActivityAdapter
 import com.app.asakatsuyaroze.adapter.MainActivityViewHolder
 import com.app.asakatsuyaroze.data.MainActivityViewModel
+import com.app.asakatsuyaroze.data.SetAlarmPatternViewModel
 import com.app.asakatsuyaroze.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: MainActivityAdapter
+    private lateinit var mAlarmPatternViewModel: MainActivityViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val mAlarmPatternViewModel =
-            ViewModelProvider(this).get(MainActivityViewModel::class.java)
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+    override fun onStart() {
+        super.onStart()
 
         val dividerItemDecoration = DividerItemDecoration(this, RecyclerView.VERTICAL)
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.separator)!!)
 
         mAlarmPatternViewModel.refleshData(applicationContext)
+
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mAlarmPatternViewModel =
+            ViewModelProvider(this).get(MainActivityViewModel::class.java)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
         mAlarmPatternViewModel.alarmPatternDataList.observe(this) {
 
@@ -52,6 +60,7 @@ class MainActivity : AppCompatActivity() {
                 binding.recyclerView.adapter = adapter
             }
         }
+
     }
 
     fun floatingActionButtonClick(view: View) {

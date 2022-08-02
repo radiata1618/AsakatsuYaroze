@@ -11,16 +11,18 @@ import androidx.fragment.app.DialogFragment
 import androidx.room.Room
 import com.app.asakatsuyaroze.data.Alarm
 import com.app.asakatsuyaroze.data.AppDatabase
+import com.app.asakatsuyaroze.data.SetAlarmPatternViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.time.LocalTime
 
-class TimePick(mode:Int,patternId:Int,context: Context) : DialogFragment(), TimePickerDialog.OnTimeSetListener {
+class TimePick(mode:Int,patternId:Int,context: Context,mSetAlarmPatternViewModel: SetAlarmPatternViewModel) : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 
     private val modeValue:Int = mode
     private val patternIdValue:Int = patternId
     private val contextValue:Context = context
+    private val mSetAlarmPatternViewModelValue:SetAlarmPatternViewModel=mSetAlarmPatternViewModel
 
     // Bundle sould be nullable, Bundle?
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -48,22 +50,19 @@ class TimePick(mode:Int,patternId:Int,context: Context) : DialogFragment(), Time
             Room.databaseBuilder(contextValue, AppDatabase::class.java, "mainDatabase")
                 .build()
         val alarmDao = database.alarmDao()
-        GlobalScope.launch(Dispatchers.IO) {
         when (modeValue) {
             1 -> {
                 //朝活目覚ましの処理
                 GlobalScope.launch(Dispatchers.IO) {
-                    alarmDao.deleteAlarmByPatternIdType1(patternIdValue)
-                    alarmDao.deleteAlarmByPatternIdType2(patternIdValue)
 
-                    alarmDao.insert(Alarm(0, patternIdValue,2,hourOfDay,minute,true,0,0))
+                    alarmDao.updateAlarmType2Default(patternIdValue,hourOfDay,minute)
 
                     var time:LocalTime = LocalTime.of(hourOfDay, minute, 0)
                     time=time.minusMinutes(5)
 
-                    alarmDao.insert(Alarm(0, patternIdValue,1,time.hour,time.minute,true,0,0))
+                    alarmDao.updateAlarmType1Default(patternIdValue,time.hour,time.minute)
 
-                    Log.d("TAG", "■■■■■■■■■■■■■■■■■■■Alarm更新処理完了■■■■■■■■■■■■■■■■■■■")
+                    mSetAlarmPatternViewModelValue.refleshData(contextValue,patternIdValue)
 
                 }
 
@@ -74,7 +73,5 @@ class TimePick(mode:Int,patternId:Int,context: Context) : DialogFragment(), Time
             }
         }
 
-
-    }
     }
 }

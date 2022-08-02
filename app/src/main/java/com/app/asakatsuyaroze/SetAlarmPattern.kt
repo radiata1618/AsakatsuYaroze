@@ -13,22 +13,28 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.asakatsuyaroze.adapter.MainActivityAdapter
 import com.app.asakatsuyaroze.data.Alarm
 import com.app.asakatsuyaroze.data.AlarmPattern
+import com.app.asakatsuyaroze.data.MainActivityViewModel
 import com.app.asakatsuyaroze.data.SetAlarmPatternViewModel
 import com.app.asakatsuyaroze.databinding.ActivityMainBinding
 
 public final class SetAlarmPattern : AppCompatActivity() {
 
     private var alarmPatternId:Int =0;
+    private lateinit var mSetAlarmPatternViewModel: SetAlarmPatternViewModel
 
+    override fun onStart() {
+        super.onStart()
+        mSetAlarmPatternViewModel.refleshData(applicationContext,alarmPatternId)
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.set_alarm_pattern)
 
-        val mSetAlarmPatternViewModel =
+        mSetAlarmPatternViewModel =
             ViewModelProvider(this).get(SetAlarmPatternViewModel::class.java)
 
         alarmPatternId = intent.getIntExtra("alarmPatternId", -1)
-        mSetAlarmPatternViewModel.refleshData(applicationContext,alarmPatternId)
 
         mSetAlarmPatternViewModel.alarmPattern.observe(this) {
             if(mSetAlarmPatternViewModel.alarmPattern.value!=null){
@@ -53,15 +59,12 @@ public final class SetAlarmPattern : AppCompatActivity() {
         mSetAlarmPatternViewModel.alarmListType3.observe(this) {
         }
 
-
     }
     fun firstSecondAlarmSetButtonClick(view: View) {
 
-        val newFragment = TimePick(1,alarmPatternId,this)
+        val newFragment = TimePick(1,alarmPatternId,this,mSetAlarmPatternViewModel)
         newFragment.show(supportFragmentManager, "timePicker")
 
-//        val intent = Intent(applicationContext, AddAlarmPattern::class.java)
-//        startActivity(intent)
     }
 
     fun floatingActionButtonClick(view: View) {

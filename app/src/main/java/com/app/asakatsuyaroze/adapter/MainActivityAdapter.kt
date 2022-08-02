@@ -21,7 +21,7 @@ class MainActivityAdapter(private val items: List<MainActivityAlarmPatternData>)
         val inflater = LayoutInflater.from(parent.context)
         val binding: AlarmpatternRowBinding = DataBindingUtil.inflate(inflater, R.layout.alarmpattern_row, parent, false)
 
-        val holder:MainActivityViewHolder = MainActivityViewHolder(binding)
+        val holder = MainActivityViewHolder(binding)
 
 
         holder.itemView.setOnClickListener {
@@ -38,11 +38,6 @@ class MainActivityAdapter(private val items: List<MainActivityAlarmPatternData>)
     override fun getItemCount(): Int {
         return items.count()
     }
-
-//    var itemClickListener: OnItemClickListener? = null
-//    interface OnItemClickListener {
-//        fun onItemClick(holder: MainActivityViewHolder)
-//    }
 
     var itemClickListener: OnItemClickListener? = null
     interface OnItemClickListener {
